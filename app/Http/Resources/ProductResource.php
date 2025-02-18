@@ -17,8 +17,15 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'price' => $this->price,
             'image' => $this->image,
-            'ingredientsCount' => $this->ingredients_count ?: 0,
-            'ingredients' => IngredientResource::collection($this->whenLoaded('ingredients')),
+            'ingredients' => $this->whenLoaded('ingredients', function () {
+                return $this->ingredients->map(function ($ingredient) {
+                    return [
+                        'id' => $ingredient->id,
+                        'name' => $ingredient->name,
+                        'quantity' => $ingredient->pivot->quantity,
+                    ];
+                });
+            }),
         ];
 
         return $resource;

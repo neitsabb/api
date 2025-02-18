@@ -35,7 +35,7 @@ class IngredientController extends Controller
             [
                 'success' => true,
                 'message' => 'Ingredient created successfully',
-                'data' => new IngredientResource($ingredient),
+                'data' => IngredientResource::make($ingredient),
             ],
             201
         );
@@ -49,7 +49,7 @@ class IngredientController extends Controller
             [
                 'success' => true,
                 'message' => 'Ingredient modifié avec succès',
-                'data' => $ingredient
+                'data' => IngredientResource::make($ingredient)
             ]
         );
     }
